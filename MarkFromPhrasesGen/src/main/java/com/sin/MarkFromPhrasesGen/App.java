@@ -23,19 +23,25 @@ public class App
 
 	public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException
     {
-        System.out.println( "Hello World!" );
-        locale = "it_IT";
-        themes = "finance";
+       if (args.length == 2) {
+		
+        locale = args[0];
+        themes = args[1];
         
-        
+        System.out.println(args[0]+" "+args[1]);
+               
 		injector = Guice.createInjector(new GuiceModule());
 		guiceModuleManager = injector.getInstance(GuiceModuleManager.class);
 
 		con = guiceModuleManager.sqlInit("/home/juno/git/goFastCgi/goFastCgi/singo.db");
 		
-		allPhrases = guiceModuleManager.allPhrases(con,"it_IT_finance_phrases");
+		allPhrases = guiceModuleManager.allPhrases(con,locale,themes);
 		
 		guiceModuleManager.doMarkFiles(allPhrases, locale, themes);
+		guiceModuleManager.doKeywords(con, allPhrases, locale, themes);
+		con.close();
+		
+       }
 		
 		
     }

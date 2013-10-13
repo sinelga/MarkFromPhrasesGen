@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GetAllPhrases {
 
-	List<String> getAll(Connection con,String tablename) throws SQLException;
+	List<String> getAll(Connection con,String locale,String themes) throws SQLException;
 }

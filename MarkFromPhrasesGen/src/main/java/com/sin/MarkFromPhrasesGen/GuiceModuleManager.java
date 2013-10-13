@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.google.inject.Inject;
 import com.sin.MarkFromPhrasesGen.doMarkFile.DoMarkFile;
 import com.sin.MarkFromPhrasesGen.getAllPhrases.GetAllPhrases;
+import com.sin.MarkFromPhrasesGen.keywordsmaker.KeywordsMaker;
 import com.sin.MarkFromPhrasesGen.sqlinit.SqlInit;
 //import com.sin.SearchGoogleLogParser.domains.RemoteKeyword;
 //import com.sin.SearchGoogleLogParser.exportkeywords.ExportKeywords;
@@ -28,6 +29,7 @@ public class GuiceModuleManager {
 	private SqlInit sqlInit;
 	private GetAllPhrases getAllPhrases;
 	private DoMarkFile doMarkFile;
+	private KeywordsMaker keywordsMaker;
 //	private ParserLog parserLog;
 //	private Sqlbydaystat sqlbydaystat;
 //	private ExportKeywords exportKeywords; 
@@ -39,34 +41,22 @@ public class GuiceModuleManager {
 	private Connection con;
 	
 	@Inject
-	public void StartProvider(SqlInit sqlInit,GetAllPhrases getAllPhrases,DoMarkFile doMarkFile){
+	public void StartProvider(SqlInit sqlInit,GetAllPhrases getAllPhrases,DoMarkFile doMarkFile,KeywordsMaker keywordsMaker){
 		
 //		this.sqlStat = sqlStat;
 		this.sqlInit = sqlInit;
 		this.getAllPhrases = getAllPhrases;
 		this.doMarkFile = doMarkFile;
+		this.keywordsMaker = keywordsMaker;
 //		this.parserLog = parserLog;
 //		this.sqlbydaystat = sqlbydaystat;
 //		this.exportKeywords = exportKeywords;
 	}
 	
 	
-//	public void exportkeywords(List<RemoteKeyword> remoteKeywords) throws IOException {
-//		
-//		exportKeywords.export(remoteKeywords);
-//		
-//	}
-//		
-//	public String[] parserLog(String logstr){
-//		
-//		return parserLog.parseStr(logstr);
-//		
-//	}e
-//	
-	
-	public List<String> allPhrases(Connection con,String tablename) throws SQLException{
+	public List<String> allPhrases(Connection con,String locale,String themes) throws SQLException{
 		
-		allPhrase =getAllPhrases.getAll(con, tablename);
+		allPhrase =getAllPhrases.getAll(con, locale,themes);
 		return allPhrase;
 		
 	}
@@ -84,16 +74,11 @@ public class GuiceModuleManager {
 		
 	}
 	
-//	
-//	public void insertRecord(Connection con,String[] record ) throws ClassNotFoundException, SQLException, ParseException{
-//		
-//		sqlStat.insertRecord(con,record);
-//	}	
-//	
-//	public void insertBydayRecord(Connection con,String[] record ) throws ClassNotFoundException, SQLException, ParseException{
-//			
-//		sqlbydaystat.insert(con, record);
-//	}
-//	
+	public void doKeywords(Connection con,List<String> phrasesarr,String locale,String themes) throws SQLException {
+		
+		keywordsMaker.Makekeywords(con, phrasesarr,locale,themes);
+		
+	}
+	
 	
 }

@@ -11,9 +11,12 @@ public class GetAllPhrasesImpl implements GetAllPhrases{
 
 	private String sqlstr;
 	private List<String> phrasesarr;
+	private String tablename;
 
-	public List<String> getAll(Connection con,String tablename) throws SQLException {
+	public List<String> getAll(Connection con,String locale,String themes) throws SQLException {
 		// TODO Auto-generated method stub
+		tablename = locale+"_"+themes+"_phrases";
+		
 		Statement stat = con.createStatement();
 		sqlstr = "select Keyword from "+tablename+";";
 		ResultSet rs = stat.executeQuery(sqlstr);
@@ -22,8 +25,7 @@ public class GetAllPhrasesImpl implements GetAllPhrases{
 		while (rs.next()) {
 
 			String phrase = rs.getString("Keyword");
-			
-//			System.out.println( phrase );
+
 			phrasesarr.add(phrase);
 		}
 		

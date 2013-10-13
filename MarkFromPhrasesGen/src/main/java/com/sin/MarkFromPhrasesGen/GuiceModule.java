@@ -8,6 +8,10 @@ import com.sin.MarkFromPhrasesGen.doMarkFile.DoMarkFile;
 import com.sin.MarkFromPhrasesGen.doMarkFile.DoMarkFileImpl;
 import com.sin.MarkFromPhrasesGen.getAllPhrases.GetAllPhrases;
 import com.sin.MarkFromPhrasesGen.getAllPhrases.GetAllPhrasesImpl;
+import com.sin.MarkFromPhrasesGen.keywordsDB.KeywordsDB;
+import com.sin.MarkFromPhrasesGen.keywordsDB.KeywordsDBImpl;
+import com.sin.MarkFromPhrasesGen.keywordsmaker.KeywordsMaker;
+import com.sin.MarkFromPhrasesGen.keywordsmaker.KeywordsMakerImpl;
 import com.sin.MarkFromPhrasesGen.sqlinit.SqlInit;
 //import com.sin.SearchGoogleLogParser.exportkeywords.ExportKeywords;
 //import com.sin.SearchGoogleLogParser.exportkeywords.ExportKeywordsImpl;
@@ -32,8 +36,8 @@ public class GuiceModule implements Module{
 		binder.bind(SqlInit.class).to(SqlInitImpl.class).in(Scopes.SINGLETON);
 		
 		binder.bind(DoMarkFile.class).to(DoMarkFileImpl.class).in(Scopes.SINGLETON);
-//		binder.bind(Sqlbydaystat.class).to(SqlbydaystatImpl.class).in(Scopes.SINGLETON);
-//		binder.bind(ExportKeywords.class).to(ExportKeywordsImpl.class).in(Scopes.SINGLETON);
+		binder.bind(KeywordsMaker.class).to(KeywordsMakerImpl.class).in(Scopes.SINGLETON);
+		binder.bind(KeywordsDB.class).to(KeywordsDBImpl.class).in(Scopes.SINGLETON);
 //		binder.bind(HtmlParserProvider.class).to(HtmlParserProviderImpl.class).in(Scopes.SINGLETON);
 //		binder.bind(TasksProvider.class).to(TasksProviderImpl.class).in(Scopes.SINGLETON);
 //		binder.bind(InsertContImage.class).to(InsertContImageImpl.class).in(Scopes.SINGLETON);
